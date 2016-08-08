@@ -1,4 +1,4 @@
 *~
-*.out
-*.exe
 *.dat
+bin/*
+!.gitkeep
