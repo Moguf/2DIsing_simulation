@@ -1,6 +1,7 @@
 *~
 *.dat
 *.out
+*.pyc
 bin/*
 build/*
 !.gitkeep
