@@ -1,0 +1,5 @@
+/home/ono/misc/2DIsing_simulation/build/CMakeFiles/edit_cache.dir
+/home/ono/misc/2DIsing_simulation/build/CMakeFiles/rebuild_cache.dir
+/home/ono/misc/2DIsing_simulation/build/src/CMakeFiles/rebuild_cache.dir
+/home/ono/misc/2DIsing_simulation/build/src/CMakeFiles/edit_cache.dir
+/home/ono/misc/2DIsing_simulation/build/src/CMakeFiles/main.dir
