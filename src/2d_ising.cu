@@ -11,10 +11,10 @@ using namespace std;
         printf("error %s,at %d\n",cudaGetErrorString(err),__LINE__);    \
 }
 
-//#define ROW 2048
-#define ROW 3072
-//#define COL 2048
-#define COL 3072
+//#define ROW 10752
+#define ROW 10752
+//#define COL 10752
+#define COL 10752
 
 __global__ void g_rand_init(int size,curandState *states);
 __global__ void g_calc_energy(int J,int *S,int *E,int row,int col,curandState *states);

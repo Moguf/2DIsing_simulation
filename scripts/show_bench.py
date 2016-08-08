@@ -2,6 +2,7 @@
 # coding:utf-8
 
 import os
+import sys
 import subprocess
 
 import matplotlib.pyplot as plt
@@ -18,22 +19,32 @@ class Benchmark:
             subprocess.call(cmdline,shell=True)
 
     def build(self):
-        for rowcol in self.rowcol:
-            cmdline = 'sed "s/#define ROW .*/#define ROW %d/ -i ../src/%s' % (rowcol[0],self.filename)
-            cmdline2 = 'sed "s/#define COL .*/#define COL %d/ -i ../src/%s' % (rowcol[1],self.filename)
-            #subprocess.call(
-            print(cmdline)
-        
+        for i,rowcol in enumerate(self.rowcol):
+            print("size = [row,col] = [%d,%d]" %(rowcol[0],rowcol[1]))
+            cmdline = 'sed "s/#define ROW .*/#define ROW %d/" -i ../src/%s' % (rowcol[0],self.filename)
+            cmdline2 = 'sed "s/#define COL .*/#define COL %d/" -i ../src/%s' % (rowcol[1],self.filename)
+            cmdline3 = 'sed "s/cuda_add_executable.*/cuda_add_executable\(run%d.exe 2d_ising.cu\)/" -i ../src/CMakeLists.txt' % (i)
+            build = "(cd ../build;cmake ..;make )"
+            subprocess.call(cmdline,shell=True)
+            subprocess.call(cmdline2,shell=True)
+            subprocess.call(cmdline3,shell=True)
+            subprocess.call(build,shell=True)
+            
     def run(self):
-        print(self.rowcol)
+        #for i in range(len(self.rowcol)):
+        for i in range(2):
+            cmdline = "(cd ../bin ;time nvprof ./run%d.exe)" % (i)
+            proc = subprocess.Popen(cmdline,shell=True,stdout=subprocess.PIPE)
 
-
+            line = proc.communicate()[0]
+            #print(line)
+            
     def show(self):
         pass
     
     def main(self):
         self.clean()
-        self.build()
+        #self.build()
         self.run()
         self.show()
         
