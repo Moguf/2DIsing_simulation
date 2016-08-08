@@ -1,4 +1,6 @@
 *~
 *.dat
+*.out
 bin/*
+build/*
 !.gitkeep

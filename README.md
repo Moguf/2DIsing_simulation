@@ -6,6 +6,8 @@ Simulating 2D-Ising with GPU.
 - Gradle  >= 2.10
 
 ## Build
-    gradle
+    cd build
+    cmake ..
+    make
 
 ## Run
