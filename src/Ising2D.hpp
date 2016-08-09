@@ -11,9 +11,12 @@ struct Environments{
 class Ising2D
 {
 private:
+    int size = ROW*COL;
     Env env;
     char *hS;
+    char *hE;
     char *dS;
+    char *dE;
 public:
     void devInfo();
     void run();
