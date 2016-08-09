@@ -6,7 +6,6 @@
 #include <curand.h>
 #include <curand_kernel.h>
 
-
 #include "Ising2D.hpp"
 #include "mykernel.hpp"
 
@@ -17,14 +16,15 @@ int main(void){
         chrono::system_clock::now();
         
     Ising2D tmp;
-    tmp.devInfo();
+    
+    //tmp.devInfo();
     
     tmp.hostInit();
     tmp.devInit();
-    tmp.run();
+    tmp.deviceRun();
+    tmp.hostRun();
     tmp.devEnd();
     tmp.hostEnd();
-
     
     const chrono::system_clock::time_point end =
         chrono::system_clock::now();
