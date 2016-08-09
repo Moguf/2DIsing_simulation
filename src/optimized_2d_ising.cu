@@ -4,7 +4,7 @@
 #include <curand_kernel.h>
 #include <stdio.h>
 
-#include "mycuda.hpp"
+#include "mykernel.hpp"
 #include "Ising2D.hpp"
 
 using namespace std;
@@ -25,9 +25,11 @@ private:
     Env env;
 
 public:
-    int i;
-    void run();
-    void 
+    inline void run();
+    inline void devInit();
+    inline void hostInit();
+    inline void devEnd();
+    inline void hostEnd();
 };
 
 int main(void){
