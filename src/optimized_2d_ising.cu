@@ -16,13 +16,15 @@ int main(void){
         chrono::system_clock::now();
         
     Ising2D tmp;
-    
-    //tmp.devInfo();
-    
+
     tmp.hostInit();
+    tmp.setDim(32,32,(ROW + 32 -1)/32 ,(COL + 32 -1 ) / 32);
     tmp.devInit();
+    
+    tmp.devInfo();
     tmp.deviceRun();
     tmp.hostRun();
+    
     tmp.devEnd();
     tmp.hostEnd();
     

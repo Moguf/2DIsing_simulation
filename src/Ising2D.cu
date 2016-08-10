@@ -14,16 +14,18 @@ void Ising2D::devInfo(){
     cudaSetDevice(dev);
     cudaDeviceProp deviceProp;
     cudaGetDeviceProperties(&deviceProp,dev);
-    
+    printf("Size: %10d\n",size);
+    printf("Grid.(%3d,%3d),Block.(%3d,%3d)\n",_dim.grid[0],_dim.grid[1],_dim.block[0],_dim.block[1]);
     printf("Device %d: %s\n",dev,deviceProp.name);
     printf("CUDA Capability Major/Minor version number:   %d.%d\n",deviceProp.major,deviceProp.minor);
+    
 }
 
 void Ising2D::hostInit(){
-    _dim.grid[0] = 64;
-    _dim.grid[1] = 64;
-    _dim.block[0] = 32;
-    _dim.block[1] = 32;
+    _dim.grid[0] = 32;
+    _dim.grid[1] = 32;
+    _dim.block[0] = (_dim.grid[0] + ROW -1) / _dim.grid[0];
+    _dim.block[1] = (_dim.grid[1] + COL -1) / _dim.grid[1];
     hS = (char *)malloc(sizeof(char)*size);
     hE = (char *)malloc(sizeof(char)*size);
 }
@@ -38,7 +40,8 @@ void Ising2D::devInit(){
     cudaMalloc((char **)&dS,sizeof(char)*size);
     cudaMalloc((char **)&dE,sizeof(char)*size);
 
-    devRandInit<<<grid,block>>>(size,states,seed);
+    devRandInit<<<grid,block>>>(nthreads,states,seed);
+    devSpinInit<<<grid,block>>>(size,states,dS);
 }
 
 void Ising2D::hostEnd(){
@@ -56,7 +59,8 @@ void Ising2D::setDim(int xgrid,int ygrid,int xblock,int yblock){
 void Ising2D::devEnd(){
     cudaFree(dS);
     cudaFree(dE);
-    cudaDeviceReset();
+    cudaFree(states);
+    D_CHECK(cudaDeviceReset());
 }
 
 void Ising2D::deviceRun(){
