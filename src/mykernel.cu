@@ -5,6 +5,7 @@
 #include <curand_kernel.h>
 #include <stdio.h>
 
+#include "Ising2D.hpp"
 #include "mykernel.hpp"
 
 __global__ void devRandInit(int size,curandState *states,long int seed)
@@ -16,7 +17,7 @@ __global__ void devRandInit(int size,curandState *states,long int seed)
         curand_init(seed,idx,0,&states[idx]);
 }
 
-__global__ void devSpinInit(int size,curandState *states,char *dS)
+__global__ void devSpinInit(int size,curandState *states,SPIN *dS)
 {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;

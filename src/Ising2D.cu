@@ -26,8 +26,8 @@ void Ising2D::hostInit(){
     _dim.grid[1] = 32;
     _dim.block[0] = (_dim.grid[0] + ROW -1) / _dim.grid[0];
     _dim.block[1] = (_dim.grid[1] + COL -1) / _dim.grid[1];
-    hS = (char *)malloc(sizeof(char)*size);
-    hE = (char *)malloc(sizeof(char)*size);
+    hS = (SPIN *)malloc(sizeof(SPIN)*size);
+    hE = (SPIN *)malloc(sizeof(SPIN)*size);
 }
 
 void Ising2D::devInit(){
@@ -37,13 +37,26 @@ void Ising2D::devInit(){
     nthreads = _dim.grid[0]*_dim.grid[1]*_dim.block[0]*_dim.block[1];
     
     cudaMalloc((curandState **)&states,sizeof(curandState)*nthreads);
-    cudaMalloc((char **)&dS,sizeof(char)*size);
-    cudaMalloc((char **)&dE,sizeof(char)*size);
+    cudaMalloc((SPIN **)&dS,sizeof(SPIN)*size);
+    cudaMalloc((SPIN **)&dE,sizeof(SPIN)*size);
 
     devRandInit<<<grid,block>>>(nthreads,states,seed);
     devSpinInit<<<grid,block>>>(size,states,dS);
 }
 
+
+void Ising2D::showGraph(){
+
+
+}
+
+void Ising2D::printSpin(){
+    for(int i = 0;i<100;i++)
+        printf("%d\n",hS[i]);
+
+}
+
+    
 
 
 void Ising2D::hostEnd(){
@@ -59,10 +72,9 @@ void Ising2D::setDim(int xgrid,int ygrid,int xblock,int yblock){
 }
 
 void Ising2D::spinDtoH(){
-    D_CHECK(cudaMemcpy(hS,dS,sizeof(char)*size,cudaMemcpyDeviceToHost));
-
+    D_CHECK(cudaMemcpy(hS,dS,sizeof(SPIN)*size,cudaMemcpyDeviceToHost));
 }
-    
+
 
 
 void Ising2D::devEnd(){

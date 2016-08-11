@@ -12,21 +12,29 @@
 using namespace std;
 
 int main(void){
+    int xgrid = 64;
+    int ygrid = 64;
     const chrono::system_clock::time_point start =
         chrono::system_clock::now();
         
     Ising2D tmp;
 
+    // setup
     tmp.hostInit();
-    tmp.setDim(32,32,(ROW + 32 -1)/32 ,(COL + 32 -1 ) / 32);
+    tmp.setDim(xgrid,ygrid,(ROW + xgrid -1)/xgrid ,(COL + ygrid -1 ) / ygrid);
     tmp.devInit();
-
-    tmp.spinDtoH();
-    
     tmp.devInfo();
+
+    // test
+    tmp.spinDtoH();
+    tmp.printSpin();
+    tmp.showGraph();
+    
+    // main
     tmp.deviceRun();
     tmp.hostRun();
-    
+
+    // End
     tmp.devEnd();
     tmp.hostEnd();
     
