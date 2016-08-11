@@ -35,6 +35,7 @@ public:
     void hostInit();
     void devEnd();
     void hostEnd();
+    void spinDtoH();
     void setDim(int xgrid,int ygrid,int xblock,int yblock);
 };
 

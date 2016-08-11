@@ -20,6 +20,8 @@ int main(void){
     tmp.hostInit();
     tmp.setDim(32,32,(ROW + 32 -1)/32 ,(COL + 32 -1 ) / 32);
     tmp.devInit();
+
+    tmp.spinDtoH();
     
     tmp.devInfo();
     tmp.deviceRun();

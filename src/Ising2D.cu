@@ -44,6 +44,8 @@ void Ising2D::devInit(){
     devSpinInit<<<grid,block>>>(size,states,dS);
 }
 
+
+
 void Ising2D::hostEnd(){
     free(hS);
     free(hE);
@@ -55,6 +57,13 @@ void Ising2D::setDim(int xgrid,int ygrid,int xblock,int yblock){
     _dim.block[0] = xblock;
     _dim.block[1] = yblock;
 }
+
+void Ising2D::spinDtoH(){
+    D_CHECK(cudaMemcpy(hS,dS,sizeof(char)*size,cudaMemcpyDeviceToHost));
+
+}
+    
+
 
 void Ising2D::devEnd(){
     cudaFree(dS);
