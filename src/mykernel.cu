@@ -28,4 +28,5 @@ __global__ void devSpinInit(int size,curandState *states,SPIN *dS)
         else
             dS[idx] = 1;
     }
+        
 }

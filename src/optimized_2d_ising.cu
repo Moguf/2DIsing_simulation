@@ -12,8 +12,8 @@
 using namespace std;
 
 int main(void){
-    int xgrid = 64;
-    int ygrid = 64;
+    int xgrid = 32;
+    int ygrid = 32;
     const chrono::system_clock::time_point start =
         chrono::system_clock::now();
         

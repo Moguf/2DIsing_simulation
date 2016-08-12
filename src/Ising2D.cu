@@ -6,8 +6,11 @@
 #include <curand.h>
 #include <curand_kernel.h>
 
+#include <opencv2/opencv.hpp>
+
 #include "Ising2D.hpp"
 #include "mykernel.hpp"
+#include "Image.hpp"
 
 void Ising2D::devInfo(){
     int dev = 0;
@@ -53,7 +56,6 @@ void Ising2D::showGraph(){
 void Ising2D::printSpin(){
     for(int i = 0;i<100;i++)
         printf("%d\n",hS[i]);
-
 }
 
     
