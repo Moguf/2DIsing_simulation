@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 class Benchmark:
     def __init__(self):
-        self.rowcol = [[3*2**8*i,3*2**8*i] for i in range(2,16,2)]
+        self.rowcol = [[3*2**8*i,3*2**8*i] for i in range(2,16,2)][:2]
         self.filename = "2d_ising.cu"
         
     def clean(self):
@@ -31,13 +31,14 @@ class Benchmark:
             subprocess.call(build,shell=True)
             
     def run(self):
+        f = open("bench.dat",'w')
         #for i in range(len(self.rowcol)):
         for i in range(2):
-            cmdline = "(cd ../bin ;time nvprof ./run%d.exe)" % (i)
-            proc = subprocess.Popen(cmdline,shell=True,stdout=subprocess.PIPE)
+            cmdline = "(cd ../bin ;nvprof --log-file ../benchmarks/bench%d.dat ./run%d.exe )" % (i,i)
+            #proc = subprocess.Popen(cmdline,shell=True,stdout=subprocess.PIPE)
+            #line = proc.communicate()[0]
+            out = subprocess.check_output(cmdline,shell=True)
 
-            line = proc.communicate()[0]
-            #print(line)
             
     def show(self):
         pass
