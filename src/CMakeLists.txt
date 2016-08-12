@@ -1,4 +1,8 @@
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/)
-add_definitions("-Wall -O3")
+add_definitions(-Wall -O3)
 
-cuda_add_executable(run6.exe 2d_ising.cu)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-std=c++11;-arch=sm_30)
+
+cuda_add_executable(run.exe optimized_2d_ising.cu Ising2D.cu mykernel.cu)
+
+target_link_libraries(run.exe -lcurand)
