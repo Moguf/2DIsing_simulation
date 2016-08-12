@@ -44,8 +44,10 @@ public:
     void devEnd();
     void hostEnd();
     void spinDtoH();
-    void showGraph();
+    void energyDtoH();
+    void writeGraph();
     void printSpin();
+    void printEnergy();
     void drawGraph();
     void setDim(int xgrid,int ygrid,int xblock,int yblock);
 };

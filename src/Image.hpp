@@ -3,6 +3,6 @@
 
 class Image{
 public:
-    void draw();
+    void draw(SPIN *hS);
 };
 #endif

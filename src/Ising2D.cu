@@ -45,20 +45,26 @@ void Ising2D::devInit(){
 
     devRandInit<<<grid,block>>>(nthreads,states,seed);
     devSpinInit<<<grid,block>>>(size,states,dS);
+    //devCalcEnergy<<<grid,block>>>(1,dS,dE,ROW,COL);
 }
 
 
-void Ising2D::showGraph(){
-
-
+void Ising2D::writeGraph(){
+    {
+        Image tmp;
+        tmp.draw(hS);
+    }
 }
 
 void Ising2D::printSpin(){
-    for(int i = 0;i<100;i++)
-        printf("%d\n",hS[i]);
+    
 }
 
-    
+void Ising2D::printEnergy(){
+    for(int i = 0;i<20;i++){
+        printf("%d\n",hE[i]);
+    }
+}
 
 
 void Ising2D::hostEnd(){
@@ -76,6 +82,9 @@ void Ising2D::setDim(int xgrid,int ygrid,int xblock,int yblock){
 void Ising2D::spinDtoH(){
     D_CHECK(cudaMemcpy(hS,dS,sizeof(SPIN)*size,cudaMemcpyDeviceToHost));
 }
+void Ising2D::energyDtoH(){
+    D_CHECK(cudaMemcpy(hE,dE,sizeof(SPIN)*size,cudaMemcpyDeviceToHost));
+}
 
 
 
@@ -87,10 +96,9 @@ void Ising2D::devEnd(){
 }
 
 void Ising2D::deviceRun(){
-
+    
 }
 
 void Ising2D::hostRun(){
     
 }
-
