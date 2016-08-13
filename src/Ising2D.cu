@@ -110,9 +110,9 @@ void Ising2D::deviceRun(){
         writeGraph(filename);
 
         flag = 0;
-        devSimulate<<<grid,block>>>(1,1,dS,dE,ROW,COL,states,flag);
+        devSimulate<<<grid,block>>>(1,0.5,dS,dE,ROW,COL,states,flag);
         flag = 1;
-        devSimulate<<<grid,block>>>(1,1,dS,dE,ROW,COL,states,flag);
+        devSimulate<<<grid,block>>>(1,0.5,dS,dE,ROW,COL,states,flag);
         //filename = filename + itoa(i) + ".png";
         
     }

@@ -22,7 +22,7 @@ void Image::draw(SPIN *hS,char *filename){
     for(int i = 0 ; i < ROW-1 ; i++){
         src = png.ptr<cv::Vec3b>(i);
 
-        for(int j = 0 ; j < COL-1 ; j++){
+        for(int j = 0 ; j < COL ; j++){
             if(hS[i+COL*j] == 1){
                 src[j][0] = (unsigned char)0;
                 src[j][1] = (unsigned char)0;
