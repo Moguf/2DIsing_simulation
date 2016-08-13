@@ -18,4 +18,4 @@ Simulating 2D-Ising with GPU.
     ./run.exe
 
 ## Results
-[Ising](benchmarks/ising.gif)
+![Ising](benchmarks/ising.gif)
