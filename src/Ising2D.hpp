@@ -1,6 +1,6 @@
 #ifndef __ISING2D_HPP
 #define __ISING2D_HPP
-
+#include <string>
 //#define ROW 3072
 //#define ROW 2048
 #define ROW 1024
@@ -45,7 +45,7 @@ public:
     void hostEnd();
     void spinDtoH();
     void energyDtoH();
-    void writeGraph();
+    void writeGraph(char *filename);
     void printSpin();
     void printEnergy();
     void drawGraph();

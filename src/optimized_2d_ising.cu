@@ -26,14 +26,13 @@ int main(void){
     tmp.devInfo();
 
     // test
-    tmp.spinDtoH();
-    //tmp.printSpin();
-    tmp.writeGraph();
-    //tmp.energyDtoH();
+
+    tmp.energyDtoH();
+    //tmp.writeGraph("test.png");
     //tmp.printEnergy();
     // main
     tmp.deviceRun();
-    tmp.hostRun();
+    //tmp.hostRun();
 
 
     // End

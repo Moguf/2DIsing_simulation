@@ -1,5 +1,7 @@
 #include <iostream>
 #include <array>
+#include <string>
+#include <sstream>
 
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -7,6 +9,8 @@
 #include <curand_kernel.h>
 
 #include <opencv2/opencv.hpp>
+
+using namespace std;
 
 #include "Ising2D.hpp"
 #include "mykernel.hpp"
@@ -45,15 +49,16 @@ void Ising2D::devInit(){
 
     devRandInit<<<grid,block>>>(nthreads,states,seed);
     devSpinInit<<<grid,block>>>(size,states,dS);
-    //devCalcEnergy<<<grid,block>>>(1,dS,dE,ROW,COL);
+    devCalcEnergy<<<grid,block>>>(1,dS,dE,ROW,COL);
 }
 
 
-void Ising2D::writeGraph(){
-    {
-        Image tmp;
-        tmp.draw(hS);
-    }
+void Ising2D::writeGraph(char *filename){
+    Image tmp;
+    //tmp.printCVversion();
+    spinDtoH();
+    tmp.draw(hS,filename);
+
 }
 
 void Ising2D::printSpin(){
@@ -87,7 +92,6 @@ void Ising2D::energyDtoH(){
 }
 
 
-
 void Ising2D::devEnd(){
     cudaFree(dS);
     cudaFree(dE);
@@ -96,7 +100,22 @@ void Ising2D::devEnd(){
 }
 
 void Ising2D::deviceRun(){
-    
+    int flag;
+    int nstep = 500;
+    char filename[255];
+
+    for(int i=0;i<nstep;i++){
+        sprintf(filename , "test%03d.png",i);
+        cout << filename <<endl;
+        writeGraph(filename);
+
+        flag = 0;
+        devSimulate<<<grid,block>>>(1,1,dS,dE,ROW,COL,states,flag);
+        flag = 1;
+        devSimulate<<<grid,block>>>(1,1,dS,dE,ROW,COL,states,flag);
+        //filename = filename + itoa(i) + ".png";
+        
+    }
 }
 
 void Ising2D::hostRun(){

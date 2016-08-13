@@ -3,6 +3,7 @@
 
 class Image{
 public:
-    void draw(SPIN *hS);
+    void printCVversion();
+    void draw(SPIN *hS,char *filename);
 };
 #endif
